@@ -1,5 +1,5 @@
 import deepFreeze from 'deep-freeze'
-import anecdoteReducer, { vote } from './anecdoteReducer'
+import anecdoteReducer, { vote, createAnecdote } from './anecdoteReducer'
 
 describe('redux-anecdotes reducer', () => {
   const initialState = [
@@ -21,11 +21,7 @@ describe('redux-anecdotes reducer', () => {
   })
 
   test('vote action increments vote count', () => {
-    const action = {
-      type: 'VOTE',
-      anecdote: 2
-    }
-
+    const action = vote(2)
     const state = initialState
 
     deepFreeze(state)
@@ -40,13 +36,14 @@ describe('redux-anecdotes reducer', () => {
     ])
   })
 
-  test('vote action creator returns proper object', () => {
-    const action = {
-      type: 'VOTE',
-      anecdote: 2
-    }
+  test('create new anecdote returns proper state', () => {
+    const action = createAnecdote('This is a test')
+    const state = initialState
 
-    const createdAction = vote(2)
-    expect(createdAction).toEqual(action)
+    deepFreeze(state)
+    const newState = anecdoteReducer(state, action)
+    expect(newState).toHaveLength(initialState.length + 1)
+    expect(newState[initialState.length].content).toBe('This is a test')
+    expect(newState[initialState.length].votes).toBe(0)
   })
 })
