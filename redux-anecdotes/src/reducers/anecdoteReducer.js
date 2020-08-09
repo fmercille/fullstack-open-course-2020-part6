@@ -17,12 +17,12 @@ const asObject = (anecdote) => {
   }
 }
 
-const initialState = anecdotesAtStart.map(asObject)
+const sorter = (a, b) => a.votes > b.votes ? -1 : (a.votes < b.votes ? 1 : 0)
+
+const initialState = anecdotesAtStart.map(asObject).sort(sorter)
 
 const reducer = (state = initialState, action) => {
   let newState = state
-  console.log('state now: ', state)
-  console.log('action', action)
 
   switch (action.type) {
     case 'VOTE':
@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
       break
   }
 
-  return newState
+  return newState.sort(sorter)
 }
 
 const vote = (anecdote) => {
