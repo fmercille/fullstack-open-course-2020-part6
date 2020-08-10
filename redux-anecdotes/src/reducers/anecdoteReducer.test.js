@@ -22,7 +22,10 @@ describe('redux-anecdotes reducer', () => {
 
   test('vote action increments vote count', () => {
     const id = 2
-    const action = vote(id)
+    const action = {
+      type: 'ANECDOTE.VOTE',
+      anecdote: initialState.find(anecdote => anecdote.id === id)
+    }
     const state = initialState
 
     deepFreeze(state)
@@ -30,20 +33,30 @@ describe('redux-anecdotes reducer', () => {
     expect(newState.find((anecdote) => anecdote.id === id).votes).toBe(initialState.find((anecdote) => anecdote.id === id).votes + 1)
   })
 
-  // test('create new anecdote returns proper state', () => {
-  //   const action = createAnecdote("This is a test")
-  //   const state = initialState
+  test('create new anecdote returns proper state', () => {
+    const action = {
+      type: 'ANECDOTE.CREATE',
+      data: {
+        content: "This is a test",
+        votes: 0,
+        id: "csL9X5w"
+      }
+    }
+    const state = initialState
 
-  //   deepFreeze(state)
-  //   const newState = anecdoteReducer(state, action)
-  //   expect(newState).toHaveLength(initialState.length + 1)
-  //   expect(newState[initialState.length].content).toBe('This is a test')
-  //   expect(newState[initialState.length].votes).toBe(0)
-  // })
+    deepFreeze(state)
+    const newState = anecdoteReducer(state, action)
+    expect(newState).toHaveLength(initialState.length + 1)
+    expect(newState[initialState.length].content).toBe('This is a test')
+    expect(newState[initialState.length].votes).toBe(0)
+  })
 
   test('anecdotes are returned ordered by votes', () => {
     const id = 1
-    const action = vote(id)
+    const action = {
+      type: 'ANECDOTE.VOTE',
+      anecdote: id
+    }
     const state = initialState
 
     deepFreeze(state)
