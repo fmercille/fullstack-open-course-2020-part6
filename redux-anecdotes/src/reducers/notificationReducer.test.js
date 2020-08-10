@@ -25,7 +25,7 @@ describe('notification reducer', () => {
     const notification = 'Previous notification'
     const actionSet = setNotification(notification)
     const actionClear = clearNotification()
-    const newState = notificationReducer(undefined, actionSet)
+    const newState = notificationReducer(null, actionSet)
     expect(newState).toBe(notification)
     const clearState = notificationReducer(newState, actionClear)
     expect(clearState).toBe(null)
