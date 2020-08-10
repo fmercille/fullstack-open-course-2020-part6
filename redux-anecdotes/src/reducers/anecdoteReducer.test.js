@@ -1,5 +1,5 @@
 import deepFreeze from 'deep-freeze'
-import anecdoteReducer, { vote, createAnecdote } from './anecdoteReducer'
+import anecdoteReducer from './anecdoteReducer'
 
 describe('redux-anecdotes reducer', () => {
   const initialState = [
