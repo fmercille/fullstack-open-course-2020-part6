@@ -31,7 +31,11 @@ describe('redux-anecdotes reducer', () => {
   })
 
   test('create new anecdote returns proper state', () => {
-    const action = createAnecdote('This is a test')
+    const action = createAnecdote({
+      content: "This is a test",
+      votes: 0,
+      id: "csL9X5w"
+    })
     const state = initialState
 
     deepFreeze(state)

@@ -18,7 +18,7 @@ const reducer = (state = [], action) => {
       newState = state.map((anecdote) => anecdote.id === action.anecdote ? {...anecdote, votes: anecdote.votes + 1} : anecdote)
       break
     case 'ANECDOTE.CREATE':
-      newState = [...state, asObject(action.anecdote)]
+      newState = [...state, action.data]
       break
     case 'ANECDOTE.INIT':
       newState = action.data
@@ -37,10 +37,10 @@ const vote = (anecdote) => {
   }
 }
 
-const createAnecdote = (anecdote) => {
+const createAnecdote = (data) => {
   return {
     type: 'ANECDOTE.CREATE',
-    anecdote: anecdote
+    data
   }
 }
 
