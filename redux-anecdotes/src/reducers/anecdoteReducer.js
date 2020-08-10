@@ -1,12 +1,4 @@
-const getId = () => (100000 * Math.random()).toFixed(0)
-
-const asObject = (anecdote) => {
-  return {
-    content: anecdote,
-    id: getId(),
-    votes: 0
-  }
-}
+import anecdoteService from '../services/anecdotes'
 
 const sorter = (a, b) => a.votes > b.votes ? -1 : (a.votes < b.votes ? 1 : 0)
 
@@ -44,10 +36,13 @@ const createAnecdote = (data) => {
   }
 }
 
-const initializeAnecdotes = (anecdotes) => {
-  return {
-    type: 'ANECDOTE.INIT',
-    data: anecdotes
+const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'ANECDOTE.INIT',
+      data: anecdotes
+    })
   }
 }
 
