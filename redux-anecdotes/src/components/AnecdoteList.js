@@ -7,7 +7,7 @@ import Filter from './Filter'
 const AnecdoteList = (props) => {
   const voteAnecdote = (anecdote) => {
     props.vote(anecdote)
-    props.setNotification(`You voted '${anecdote.content}'`, 10)
+    props.setNotification(`You voted '${anecdote.content}'`, 5)
   }
 
   return (
