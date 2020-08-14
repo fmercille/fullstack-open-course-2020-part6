@@ -29,11 +29,14 @@ const AnecdoteList = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  // sometimes it is useful to console log from mapStateToProps
-  console.log(state)
-  return {
-    anecdotes: state.anecdotes,
-    filter: state.filter
+  if ( !state.filter ) {
+    return {
+      anecdotes: state.anecdotes
+    }
+  } else {
+    return {
+      anecdotes: state.anecdotes.filter((anecdote) => anecdote.content.toLowerCase().includes(state.filter.toLowerCase()))
+    }
   }
 }
 
